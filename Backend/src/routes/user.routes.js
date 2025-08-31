@@ -1,4 +1,4 @@
-import { Router } from "express";
+import express, { Router } from "express";
 import { loginUser, registerUser, logoutUser, refreshToken } from "../controllers/user.controller.js";
 import upload from "../middlewares/multer.js"
 import { verifyJwt } from "../middlewares/logout.js";
@@ -10,7 +10,7 @@ router.route("/register").post(upload.fields([
     { name: "coverImage", maxCount: 1 }
 ]), registerUser);
 
-router.route("/login").post( loginUser );
+router.route("/login").post( express.json(), loginUser );
 
 router.route("/logout").post( verifyJwt, logoutUser );
 

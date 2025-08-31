@@ -1,34 +1,54 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [videos, setVideos] = useState([]);
   const [trending, setTrending] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get("/api/videos/random"); // Replace with your API
-        setVideos(res.data);
+  const navigate = useNavigate();
+  const handleLogout = async () =>{
+    try{
+        await axios.post("/api/v1/users/logout", {}, { withCredentials: true });
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("refreshToken");
+        navigate("/login", { replace: true });
+    } catch (error) {
+        console.error("Logout failed:", error);
+    }
+  }
 
-        const trendingRes = await axios.get("/api/videos/trending");
-        setTrending(trendingRes.data);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
-    };
+//   useEffect(() => {
+//     const fetchVideos = async () => {
+//       try {
+//         setLoading(true);
+//         const res = await axios.get("/api/videos/random"); // Replace with your API
+//         setVideos(res.data);
 
-    fetchVideos();
-  }, []);
+//         const trendingRes = await axios.get("/api/videos/trending");
+//         setTrending(trendingRes.data);
+//         setLoading(false);
+//       } catch (error) {
+//         console.error(error);
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchVideos();
+//   }, []);
 
   if (loading) {
     return (
+        
       <div className="min-h-screen flex items-center justify-center text-gray-700">
         Loading...
+
+        <button className="ml-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          onClick={handleLogout}
+        >
+            logout
+        </button>
       </div>
     );
   }

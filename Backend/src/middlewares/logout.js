@@ -12,8 +12,8 @@ try{
      }
 
       const decodedToken =  jwt.verify(token, process.env.ATS)
-      
-      const user = await User.findOne(decodedToken?._id)
+
+      const user = await User.findById(decodedToken.id)
       .select("-password -refreshToken")
 
      if (!user) {

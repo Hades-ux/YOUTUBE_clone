@@ -1,7 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState} from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+
+    const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,17 +22,14 @@ export default function LoginPage() {
     setLoading(true);
     console.log("Login data:", formData);
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("password", formData.password);
 
     // TODO: Connect to your login API
-    axios.post("/api/v1/users/login", formDataToSend, {withCredentials: true})
+    axios.post("/api/v1/users/login", formData, {withCredentials: true})
     .then((res) => {
-    console.log("Login successful:", res.data);
+      console.log("Login successful:", res.data);
 
-    // Example: save token if backend returns it
-    if (res.data.token) {
+  // Example: save token if backend returns it
+  if (res.data.token) {
     localStorage.setItem("authToken", res.data.token);
   }
 
@@ -38,9 +39,9 @@ export default function LoginPage() {
    const msg = err.response?.data?.error || err.message;
    alert(`Login failed: ${msg}`);
 
-  }).finally(() => {
+}).finally(() => {
   setLoading(false);
-  });
+});
   };
 
   return (
