@@ -14,27 +14,32 @@ cloudinary.config({
 });
 
 
-const uploadImage = async (filePath) => {
+const uploadFile = async (filePath, fileType = "auto") => {
   try {
     if (!filePath) {
       throw new Error("No file path provided");
     }
 
-    const result = await cloudinary.uploader.upload(filePath, {
-      resource_type: "auto",
-    });
+    let folder = "Uploads"; // default folder
 
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
+  // Choose folder based on file type
+  if (fileType === "image") folder = "Images";
+  else if (fileType === "video") folder = "Videos";
+  else if (fileType === "audio") folder = "Audio"; 
+
+    const result = await cloudinary.uploader.upload(filePath, {
+      resource_type: fileType,folder,
+    });
 
     return result;
   } catch (error) {
-    if (fs.existsSync(filePath)) {
+    throw new Error("Error uploading image: " + error.message);
+  } finally{
+     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
-    throw new Error("Error uploading image: " + error.message);
+
   }
 };
 
-export { uploadImage };
+export { uploadFile };

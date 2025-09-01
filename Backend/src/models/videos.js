@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 const videoSchema = new mongoose.Schema({
     video: {
         url: { type: String, required: true },
-        publicId: { type: String, required: true }
+        public_id: { type: String, required: true }
     },
 
     thumbnail: {
        url: { type: String, required: true },
-       publicId: { type: String, required: true }
+       public_id: { type: String, required: true }
     },
 
     owner: {
@@ -31,14 +31,6 @@ const videoSchema = new mongoose.Schema({
     views: {
         type: Number,
         default: 0
-    },
-
-    duration: {
-        type: Number 
-    },
-
-    resolution: { 
-        type: String 
     },
 
     isPublic: {

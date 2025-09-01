@@ -1,5 +1,5 @@
 import { User } from "../models/User.js"
-import { uploadImage } from "../utils/uploadImage.js";
+import { uploadFile } from "../utils/uploadFile.js";
 import jwt from "jsonwebtoken";
 
  const generateAuthTokenAndRefreshToken = async (userId) =>{
@@ -49,8 +49,8 @@ const registerUser = async (req, res) =>{
 
         // upload them on cloudinary, avatar
 
-        const avatar = await uploadImage(avatarPath);
-        const coverImage = coverImagePath ? await uploadImage(coverImagePath) : null;
+        const avatar = await uploadFile(avatarPath);
+        const coverImage = coverImagePath ? await uploadFile(coverImagePath) : null;
 
 
         if(!avatar){
