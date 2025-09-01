@@ -19,8 +19,11 @@ const uploadVideo = async (req,res) =>{
          throw new Error("Video & thumbnail files are required")
      }
 
-     const videoFile = await uploadFile(videoPath, "video");
-     const thumbnailFile = await uploadFile(thumbnailPath, "image");
+       // Upload both files concurrently
+      const [videoFile, thumbnailFile] = await Promise.all([
+      uploadFile(videoPath, "video"),
+      uploadFile(thumbnailPath, "image")
+    ]);
 
      if(!videoFile || !thumbnailFile){
         throw new Error("Error in uploding Video files")
@@ -47,10 +50,11 @@ const uploadVideo = async (req,res) =>{
 
      })
 
-     res.status(201).json({message: "Video Upload Sucessfully", video})
+     res.status(201).json({ succes: true, message: "Video Upload Sucessfully", video})
  
    } catch (error) {
     return res.status(500).json({
+        succes: false,
         message: " Video Uploading is failed "+ error.message
     })
     
