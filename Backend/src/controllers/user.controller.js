@@ -1,5 +1,5 @@
 import { User } from "../models/User.js";
-import { uploadImage } from "../utils/uploadImage.js";
+import { uploadFile } from "../utils/uploadFile.js";
 
 const ownerProfile = async (req, res) =>{
   try{
@@ -25,17 +25,36 @@ const userProfile = async (req, res) =>{
   }
 }
 
-const UpdateUser = async (req, res) => {
+const UpdateUserFullName = async (req, res) => {
   try{
 
     const { fullName, email } = req.body;
 
-    if(!fullName || !email){
+    if(!fullName){
       throw new Error("Full Name and Email are required");
     }
 
     const user = await User.findByIdAndUpdate(req.user?._id,
-      { $set:{ fullName, email } },{ new: true }).select("-password");
+      { $set:{ fullName} },{ new: true }).select("-password -refreshToken");
+
+  return res.status(200).json({ user, message: "User details updated successfully" });
+
+  }catch(error){
+    return res.status(500).json({ error: error.message || "Internal server error" });
+  }
+}
+
+const UpdateUserEmail = async (req, res) => {
+  try{
+
+    const { email } = req.body;
+
+    if(!email){
+      throw new Error("Email are required");
+    }
+
+    const user = await User.findByIdAndUpdate(req.user?._id,
+      { $set:{ email } },{ new: true }).select("-password -refreshToken");
 
   return res.status(200).json({ user, message: "User details updated successfully" });
 
@@ -54,7 +73,7 @@ const UpdateUserAvatar = async (req, res) =>{
       return res.status(400).json({ error: "Avatar is required" });
     }
 
-    const newAvatar = await uploadImage(newAvatarPath);
+    const newAvatar = await uploadFile(newAvatarPath);
 
     if(!newAvatar.secure_url || !newAvatar.public_id){
       throw new Error("Avatar upload failed");
@@ -93,7 +112,7 @@ const UpdateUserCoverImage = async (req, res) =>{
       return res.status(400).json({ error: "Cover image is required" });
     }
 
-    const newCoverImage = await uploadImage(newCoverImagePath);
+    const newCoverImage = await uploadFile(newCoverImagePath);
 
      if(!newCoverImage.secure_url || !newCoverImage.public_id){
       throw new Error("Cover image upload failed");
@@ -127,4 +146,4 @@ const deleteUser = async (req, res) =>{
   }
 }
 
-export { ownerProfile, userProfile, UpdateUser, UpdateUserAvatar, UpdateUserCoverImage, deleteUser };
+export { ownerProfile, userProfile, UpdateUserEmail, UpdateUserFullName, UpdateUserAvatar, UpdateUserCoverImage, deleteUser };

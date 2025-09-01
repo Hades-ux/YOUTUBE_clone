@@ -1,26 +1,7 @@
 import { User } from "../models/User.js"
 import { uploadFile } from "../utils/uploadFile.js";
 import jwt from "jsonwebtoken";
-
- const generateAuthTokenAndRefreshToken = async (userId) =>{
-
-        try{
-            const user = await User.findById(userId);
-            if(!user){
-                throw new Error("User not found");
-            }
-            const authToken = user.generateAuthToken();
-            const refreshToken = user.generateRefreshToken();
-
-            user.refreshToken = refreshToken;
-            await user.save({validateBeforeSave: false});
-
-            return { authToken, refreshToken };
-
-        }catch(error){
-            throw new Error("Error generating tokens");
-        }
-}
+import { generateAuthTokenAndRefreshToken } from "../utils/genrateToken.js";
 
 const registerUser = async (req, res) =>{
     try {
@@ -87,16 +68,30 @@ const registerUser = async (req, res) =>{
         // return response
 
       res.status(201).json({ message: "User registered successfully" });
-    } catch (error) {
-        res.status(500).json({ error: error.message || "Internal server error" });
+    }  catch (error) {
+    // Handle duplicate key error
+    if (error.code === 11000) {
+      if (error.keyValue?.userName) {
+        return res.status(400).json({ error: "Username already taken" });
+      }
+      if (error.keyValue?.email) {
+        return res.status(400).json({ error: "Email already registered" });
+      }
     }
+
+    // General error fallback
+    return res.status(500).json({ error: error.message || "Something went wrong" });
+  }
+
+   
+   return res.status(500).json({ error: "Something went wrong" || error.message });
 }
 
 const loginUser = async (req, res) =>{
 try{
     // get user data from body
 
-    const {email, password} = req.body;
+    const { email, password } = req.body;
 
     // validate input
     if(!email || !password){
@@ -177,7 +172,7 @@ const logoutUser = async (req, res) =>{
   }
 }
 
-const  refreshToken = async (req, res) =>{
+const refreshToken = async (req, res) =>{
     
         const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
 
@@ -221,7 +216,7 @@ const  refreshToken = async (req, res) =>{
     }
 }
 
-const  forgotPassword = async (req, res) => {
+const forgotPassword = async (req, res) => {
   try{
     const { oldPassword, newPassword } = req.body;
 

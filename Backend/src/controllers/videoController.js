@@ -1,6 +1,6 @@
-import Video from "../models/videos"
-import User from "../models/User.js"
-import { uploadFile } from "../utils/uploadFile";
+import { Video } from "../models/videos.js"
+import { User } from "../models/User.js"
+import { uploadFile } from "../utils/uploadFile.js";
 import { v2 as cloudinary } from "cloudinary";
 
 

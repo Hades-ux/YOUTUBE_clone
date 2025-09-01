@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-// import authRoute from './routes/auth.js';
+
 
 const app = express();
 
@@ -10,16 +10,19 @@ app.use(cors({
     credentials: true
 }));
 
-// app.use(express.json({limit: "16kb"}));
-// app.use(express.urlencoded({extended: true, limit: "16kb"}));
+app.use(express.json({limit: "16kb"}));
+app.use(express.urlencoded({extended: true, limit: "16kb"}));
 app.use(express.static("public"));
 
 app.use(cookieParser());
 
-// app.use("/api/auth", authRoute);
+import authRoute from './routes/authRoutes.js';
+import userRoute from './routes/userRoutes.js';
+import videoRoute from './routes/videoRoutes.js';
 
-import userRoute from './routes/user.routes.js';
 
-app.use("/api/v1/users", userRoute)
+app.use("/api/v1/user", userRoute)
+app.use("/api/v1/auth", authRoute)
+app.use("/api/v1/video", videoRoute)
 
 export { app };
