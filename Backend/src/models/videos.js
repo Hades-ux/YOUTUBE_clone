@@ -67,7 +67,18 @@ const videoSchema = new mongoose.Schema({
 
     category: {
          type: String,
-        index: true 
+        index: true
+    },
+
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        index: true
+    }],
+
+    likeCount: {
+        type: Number,
+        default: 0
     }
 
 },{ timestamps: true })
