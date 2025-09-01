@@ -39,17 +39,11 @@ const videoSchema = new mongoose.Schema({
         index: true
     },
 
-    isHidden: {
-        type: Boolean,
-        default: false,
-        index: true
-    },
-
-      isDeleted: {
+    isDeleted: {
           type: Boolean,
           default: false,
           index: true
-      },
+    },
 
     tags:[{
         type: String,

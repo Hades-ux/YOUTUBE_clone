@@ -5,7 +5,7 @@ const uploadVideo = async (req,res) =>{
 
 
    try {
-     const { title } = req.body;
+     const { title, description, isPublic, tags, category } = req.body;
      const owner = req.user._id;
  
      if(!title || !owner){
@@ -30,6 +30,10 @@ const uploadVideo = async (req,res) =>{
      const video = await Video.create({
         title,
         owner,
+        tags,
+        category,
+        description,
+        isPublic,
         video:{
             url: videoFile.secure_url,
             public_id: videoFile.public_id
