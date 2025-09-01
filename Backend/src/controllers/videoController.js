@@ -1,7 +1,10 @@
 import Video from "../models/videos"
+import User from "../models/User.js"
 import { uploadFile } from "../utils/uploadFile";
+import { v2 as cloudinary } from "cloudinary";
 
-const uploadVideo = async (req,res) =>{
+
+const uploadVideo = async (req,res) => {
 
 
    try {
@@ -9,14 +12,20 @@ const uploadVideo = async (req,res) =>{
      const owner = req.user._id;
  
      if(!title || !owner){
-         throw new Error("Title and owner are required")
-     }
+         return res.status(400).json({
+            success: false,
+            message: "Title and owner are required"
+     })
+    }
  
      const videoPath = req.files?.video[0]?.path;
      const thumbnailPath = req.files?.thumbnail[0]?.path;
  
      if(!videoPath || !thumbnailPath){
-         throw new Error("Video & thumbnail files are required")
+         return res.status(400).json({
+            success: false,
+            message: "Video & thumbnail files are required"
+        })
      }
 
        // Upload both files concurrently
@@ -26,7 +35,10 @@ const uploadVideo = async (req,res) =>{
     ]);
 
      if(!videoFile || !thumbnailFile){
-        throw new Error("Error in uploding Video files")
+        return res.status(500).json({
+            success: false,
+            message:"Error in uploding Video files"
+        })
             
      }
 
@@ -50,11 +62,14 @@ const uploadVideo = async (req,res) =>{
 
      })
 
-     res.status(201).json({ succes: true, message: "Video Upload Sucessfully", video})
+     res.status(201).json({ 
+        success: true, 
+        message: "Video Upload Sucessfully", video
+    })
  
    } catch (error) {
     return res.status(500).json({
-        succes: false,
+        success: false,
         message: " Video Uploading is failed "+ error.message
     })
     
@@ -62,4 +77,82 @@ const uploadVideo = async (req,res) =>{
 
 }
 
-export { uploadVideo }
+const deleteVideo = async (req,res) => {
+
+try {
+      const { videoId } = req.params;
+      const user = req.user._id;
+
+      const video = await Video.findById(videoId)
+
+      if (!video) {
+        return res.status(404).json({
+            success: false,
+            message:"Video not  found"})
+      }
+
+      if (!user) {
+        return res.status(401).json({
+            success: false,
+            message:"Not loggedIn"
+        })
+      }
+
+    //   check owner
+
+      if(user.toString() !== video.owner.toString()){
+        return res.status(403).json({
+            success: false,
+            message:"you are not the owner of this video, so can not be deleted"
+        })
+      }
+
+    //   delete from cloudinary(video & thumbnail)
+
+      if(video.video?.public_id) {
+        await cloudinary.uploader.destroy(video.video?.public_id, {resource_type: "video" })
+      }else{
+        return res.status(404).json({
+        success: false,
+        message: "unable to delet video"})
+        
+      }
+
+      if(video.thumbnail?.public_id) {
+        await cloudinary.uploader.destroy(video.thumbnail?.public_id, {resource_type: "image" })
+      }else{
+        return res.status(404).json({
+        success: false,
+        message: "unable to delet thubnail"})
+        
+      }
+
+    // delete from dataBase
+
+    await Video.findByIdAndDelete(videoId)
+
+    // delete from watchHistroy
+
+    await User.updateMany(
+        { watchHistory: videoId},
+        { $pull: { watchHistory: videoId} }
+    )
+
+    return res.status(200).json({
+        success: true,
+        message: "Video delete Sucessfully"
+    })
+      
+
+    
+} catch (error) {
+    return res.status(500).json({
+        success: false,
+        message: "Unable to delete video" +  error.message
+    })
+    
+}
+
+}
+
+export { uploadVideo , deleteVideo }
