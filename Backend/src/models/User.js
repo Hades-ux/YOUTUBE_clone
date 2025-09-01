@@ -35,10 +35,10 @@ const  userSchema = new mongoose.Schema({
         index: true
     },
 
-     avatar: {
+    avatar: {
         url: { type: String, required: true },       
         public_id: { type: String, required: true },
-     },
+    },
 
     coverImage: {
         url: { type: String },
@@ -52,6 +52,21 @@ const  userSchema = new mongoose.Schema({
 
     refreshToken: {
         type: String,
+    },
+
+    subscriptions: [{
+        type: mongoose.Schema.ObjectId,
+        ref: "User"      // channels this user is subscribed to
+    }],
+
+    subscribers: [{
+        type: mongoose.Schema.ObjectId,
+        ref: "User"      // users who subscribed to this user
+    }],
+
+    subscriberCount: {
+        type: Number,
+        default: 0      // optional, for fast access to subscriber count
     }
 
 },{timestamps: true});
