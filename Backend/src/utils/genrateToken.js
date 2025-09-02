@@ -1,4 +1,6 @@
- const generateAuthTokenAndRefreshToken = async (userId) =>{
+import { User } from "../models/User.js"
+
+const generateAuthTokenAndRefreshToken = async (userId) =>{
 
         try{
             const user = await User.findById(userId);
@@ -9,7 +11,7 @@
             const refreshToken = user.generateRefreshToken();
 
 
-            if (!Array.isArray(user.refreshTokens)) {
+            if (!user.refreshToken || !Array.isArray(user.refreshToken)) {
             user.refreshToken = [];
     }
 
@@ -20,7 +22,7 @@
             return { authToken, refreshToken };
 
         }catch(error){
-            throw new Error("Error generating tokens");
+            throw new Error ("Error generating tokens: " + error.message);
         }
 }
 

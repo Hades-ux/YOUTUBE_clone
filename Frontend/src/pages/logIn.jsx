@@ -20,11 +20,11 @@ export default function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("Login data:", formData);
+    console.log("Login data:", formData.email);
 
 
     // TODO: Connect to your login API
-    axios.post("/api/v1/users/login", formData, {withCredentials: true})
+    axios.post("/api/v1/auth/login", formData, {withCredentials: true})
     .then((res) => {
       console.log("Login successful:", res.data);
 

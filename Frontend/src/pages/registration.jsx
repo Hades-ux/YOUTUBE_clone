@@ -1,15 +1,15 @@
 import { useState, useRef } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function RegisterForm() {
 
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-      fullName: "",
-      userName: "",
       email: "",
+      userName: "",
+      fullName: "",
       password: "",
       avatar: null,
       coverImage: null,
@@ -25,9 +25,6 @@ function RegisterForm() {
     // Handle text inputs
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
-      formData[{
-
-      }]
     };
 
     // Handle file inputs
@@ -46,21 +43,28 @@ function RegisterForm() {
     const handleSubmit = (e) =>{
        e.preventDefault();
        setLoading(true);
+
+        if (!formData.userName || !formData.email || !formData.fullName || !formData.password || !formData.avatar) {
+         alert("All fields are required, including avatar");
+         setLoading(false);
+         return;
+        }
+
        const formDataToSend = new FormData();
        formDataToSend.append("fullName", formData.fullName);
-       formDataToSend.append("userName", formData.userName);
+       formDataToSend.append("userName", formData.userName.toLocaleLowerCase());
        formDataToSend.append("email", formData.email);
        formDataToSend.append("password", formData.password);
+       formDataToSend.append("avatar", formData.avatar);
 
-          if (formData.avatar) formDataToSend.append("avatar", formData.avatar);
-          if (formData.coverImage) formDataToSend.append("coverImage", formData.coverImage);
+       if (formData.coverImage) formDataToSend.append("coverImage", formData.coverImage);
 
-          axios.post("/api/v1/users/register", formDataToSend, {
-          headers: { "Content-Type": "multipart/form-data" },
+       axios.post("/api/v1/auth/register", formDataToSend, {
+       headers: { "Content-Type": "multipart/form-data" },
 
        }).then((res) => {
            console.log("User registered:", res.data);
-           navigate("/", { replace: true });
+           navigate("/login", { replace: true });
 
        }).catch((err) => {
            console.error("Registration failed:", err.response?.data || err.message);
@@ -70,7 +74,7 @@ function RegisterForm() {
            setLoading(false);
 
            if (avatarRef.current) avatarRef.current.value = "";
-           formData.avatar && URL.revokeObjectURL(formData.avatarPreview);
+              formData.avatar && URL.revokeObjectURL(formData.avatarPreview);
 
            if (coverRef.current) coverRef.current.value = "";
            formData.coverImage && URL.revokeObjectURL(formData.coverImagePreview);

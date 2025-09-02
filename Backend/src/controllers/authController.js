@@ -20,7 +20,6 @@ const registerUser = async (req, res) =>{
           }
 
         // check for images and avatar
-
         const coverImagePath = req.files?.coverImage?.[0]?.path;
         const avatarPath = req.files?.avatar?.[0]?.path;
 
@@ -29,17 +28,15 @@ const registerUser = async (req, res) =>{
         }
 
         // upload them on cloudinary, avatar
-
         const avatar = await uploadFile(avatarPath);
         const coverImage = coverImagePath ? await uploadFile(coverImagePath) : null;
 
 
         if(!avatar){
-            throw new Error("Error uploading avatar")
+          throw new Error("Error uploading avatar")
         }
 
         // create user in database
-
         const user = await User.create({
             fullName,
             email,
@@ -55,8 +52,18 @@ const registerUser = async (req, res) =>{
             }
         })
 
-        // remove sensitive information
+        // auto-login
+        const { authToken, refreshToken } = await generateAuthTokenAndRefreshToken(user._id)
 
+        // set cookies
+        const option ={
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict"
+        }
+
+
+        // remove sensitive information
         const createdUser = await User.findById(user._id).select("-password -refreshToken");
 
         // check for user creation
@@ -68,23 +75,11 @@ const registerUser = async (req, res) =>{
         // return response
 
       res.status(201).json({ message: "User registered successfully" });
-    }  catch (error) {
-    // Handle duplicate key error
-    if (error.code === 11000) {
-      if (error.keyValue?.userName) {
-        return res.status(400).json({ error: "Username already taken" });
-      }
-      if (error.keyValue?.email) {
-        return res.status(400).json({ error: "Email already registered" });
-      }
-    }
+    }catch (error) {
 
-    // General error fallback
+    console.error("Registration error:", error);
     return res.status(500).json({ error: error.message || "Something went wrong" });
   }
-
-   
-   return res.status(500).json({ error: "Something went wrong" || error.message });
 }
 
 const loginUser = async (req, res) =>{
@@ -124,7 +119,8 @@ try{
 
     const option ={
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production"
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict"
     }
 
     return res

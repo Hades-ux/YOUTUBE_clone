@@ -8,14 +8,17 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+
   const handleLogout = async () =>{
     try{
-        await axios.post("/api/v1/users/logout", {}, { withCredentials: true });
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("refreshToken");
-        navigate("/login", { replace: true });
+        await axios.post("/api/v1/auth/logout", {}, { withCredentials: true });
+        
     } catch (error) {
-        console.error("Logout failed:", error);
+        console.error("Logout failed: ", error.message);
+    } finally{
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("refreshToken");
+      navigate("/login", { replace: true });
     }
   }
 
