@@ -61,6 +61,9 @@ const registerUser = async (req, res) =>{
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict"
         }
+          res.cookie("authToken", authToken, option)
+          res.cookie("refreshToken", refreshToken, option)
+
 
 
         // remove sensitive information

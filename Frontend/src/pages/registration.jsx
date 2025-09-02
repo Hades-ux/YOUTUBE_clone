@@ -64,7 +64,7 @@ function RegisterForm() {
 
        }).then((res) => {
            console.log("User registered:", res.data);
-           navigate("/login", { replace: true });
+           navigate("/", { replace: true });
 
        }).catch((err) => {
            console.error("Registration failed:", err.response?.data || err.message);
