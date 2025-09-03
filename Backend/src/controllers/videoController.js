@@ -155,4 +155,27 @@ try {
 
 }
 
-export { uploadVideo , deleteVideo }
+const randomHomeVideos = async (req,res) => {
+
+
+  try {
+    const count = parseInt(req.query.count) || 5
+    const videos = await Video.aggregate([
+      {$match: { isPublic: true }},
+      {$sample:{ size: count }}
+    ])
+    return res.status(200).json({ videos })
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "can not find video" + error.message
+    })
+    
+  }
+
+  
+
+}
+
+export { uploadVideo , deleteVideo, randomHomeVideos }

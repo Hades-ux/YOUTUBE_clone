@@ -23,7 +23,7 @@ const Layout = () => {
 
         {/* Main Content */}
         <main 
-          className={` pt-14 flex-grow transition-all duration-300 p-4 ${isSidebarOpen ? "ml-60" : "ml-20"} `}
+          className={`pt-14 fixed flex-grow transition-all duration-300 p-4 ${isSidebarOpen ? "ml-60" : "ml-20"} `}
           >
           <Outlet />
         </main>

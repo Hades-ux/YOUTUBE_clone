@@ -1,7 +1,7 @@
 import { Router} from "express"
 import upload from "../middlewares/multer.js";
 import { verifyJwt } from "../middlewares/logout.js";
-import { deleteVideo, uploadVideo } from "../controllers/videoController.js";
+import { deleteVideo, randomHomeVideos, uploadVideo } from "../controllers/videoController.js";
 
 const router = Router();
 
@@ -11,5 +11,7 @@ router.route("/upload").post(verifyJwt, upload.fields([
 ]), uploadVideo)
 
 router.route("/delete/:id").delete(verifyJwt, deleteVideo)
+
+router.route("/random").get(randomHomeVideos)
 
 export default router
