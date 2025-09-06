@@ -164,18 +164,55 @@ const randomHomeVideos = async (req,res) => {
       {$match: { isPublic: true }},
       {$sample:{ size: count }}
     ])
-    return res.status(200).json({ videos })
+
+    const  populateVideo = await Video.populate(videos,
+      {
+        path: "owner",
+        select: "userName avatar.url"
+      })
+
+    return res.status(200).json({ videos: populateVideo })
 
   } catch (error) {
     return res.status(500).json({
       success: false,
       message: "can not find video" + error.message
+    }) 
+  }
+}
+
+const getVideoById = async (req, res) => {
+  try {
+
+   const video = await Video.findByIdAndUpdate(req.params.id,
+    { $inc: { views: 1 } },
+    { new: true }
+   )
+   const  populateVideo = await Video.populate(video,
+      {
+        path: "owner",
+        select: "userName avatar.url subscriberCount"
+      })
+
+   if(!video){
+    return res.status(404).json({
+        success: false,
+        message: "Video not found",
+      });
+   }
+
+   return res.status(200).json({
+      success: true,
+      video: populateVideo
+    });
+    
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "can't find the video " + error.message
     })
     
   }
-
-  
-
 }
 
-export { uploadVideo , deleteVideo, randomHomeVideos }
+export { uploadVideo , deleteVideo, randomHomeVideos, getVideoById }

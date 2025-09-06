@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
+
+
+dayjs.extend(relativeTime);
 
 
 export default function HomePage() {
@@ -30,10 +35,10 @@ export default function HomePage() {
         setLoading(true);
         const res = await axios.get("/api/v1/video/random");
         setVideos(res.data.videos);
-        setLoading(false);
       } catch (error) {
         console.error("error: ", error.message);
-        setLoading(false);
+      }finally {
+        setLoading(false)
       }
     };
 
@@ -61,24 +66,41 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen p-6">
         <h1 className="p-4" >Random videos</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {videos.map((video) => (
-          <div key={video._id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
-            <img
-              src={video.thumbnail?.url}
-              alt={video.title}
-              className="w-full h-48 object-cover"
-              onClick={() =>(video.video.url)}
-            />
-            <div className="p-4">
-              <h2 className="font-semibold text-gray-800 truncate">{video.title}</h2>
-              <p className="text-gray-500 text-sm mt-1">{video.views} views</p>
-            </div>
+     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {videos.map((video) => (
+      <div
+        key={video._id}
+        className="overflow-hidden transition w-[320px] flex flex-col cursor-pointer"
+        onClick={() => {navigate(`/watch/${video._id}`)}}
+      >
+        <img
+          src={video.thumbnail?.url}
+          alt={video.title}
+          className="w-full aspect-video object-cover rounded-lg"
+        />
+
+        <div className="mt-3 flex">
+          <img 
+            src={video.owner.avatar.url}
+            alt={video.owner.userName}
+            className="w-12 h-12 rounded-full m-2 ml-0"
+          />
+
+          <div className="ml-2">
+            <h2 className="font-semibold text-gray-800 line-clamp-2">
+              {video.title}
+            </h2>
+            <h2 className="text-gray-500 truncate">{video.owner.userName}</h2>
+            <p className="text-gray-500 text-sm mt-1">
+              {video.views} Views • <span>{dayjs(video.createdAt).fromNow()}</span>
+            </p>
           </div>
-        ))}
+        </div>
       </div>
+    ))}
+  </div>
 
       {/* <h1 className="text-3xl font-bold text-gray-800 mt-12 mb-6">Recommended for you</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

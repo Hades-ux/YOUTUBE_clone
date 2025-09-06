@@ -67,7 +67,7 @@ const  userSchema = new mongoose.Schema({
 
     subscriberCount: {
         type: Number,
-        default: 0      // optional, for fast access to subscriber count
+        default: 1      // optional, for fast access to subscriber count
     }
 
 },{timestamps: true});
