@@ -13,6 +13,10 @@ const Watch = () => {
     const [ related, setRelated] = useState([])
     const [ loading, setLoading ] = useState(true)
     const navigate = useNavigate();
+    const [isMore, setMore] = useState(true)
+
+    
+  const toggleDescription = () => setMore(!isMore);
 
     useEffect(() => {
 
@@ -46,10 +50,10 @@ const Watch = () => {
     
 
   return (
-    <div className='w-screen f-ull flex'>
+    <div className='w-screen h-screen flex p-4'>
 
         {/* right container */}
-        <div className="mt-5 overflow-y-auto">
+        <div className="mt-5 overflow-y-auto max-h-screen">
          
           
 
@@ -57,7 +61,7 @@ const Watch = () => {
             <video 
             controls
             tabIndex={-1}
-            autoPlay
+            autoPlay={false}
             controlsList="nodownload"
             style={{ width: '1050px', height: '630px' }}
             src={video.video?.url || ''}>
@@ -73,25 +77,42 @@ const Watch = () => {
               alt={video.owner?.userName || 'owner'} 
               className=" mt-2 rounded-full w-12 h-12"/>
               <div>
-              <h2 className="text-xl">{video.owner?.userName || ''}</h2>
-              <h3>{video.owner.subscriberCount || 0} Subscribers</h3>
+              <h2 className="text-sm">{video.owner?.userName || ''}</h2>
+              
+              <h3 className="text-text-gray-500">{video.owner.subscriberCount || 0} Subscribers</h3>
               </div>
 
               <button className=" bg-gray-200 px-2.5 py-1 rounded-2xl">
                 Join
               </button>
+
               <button className=" bg-black text-white px-2.5 py-1 rounded-2xl">
                 subscribe
               </button>
 
               </div>
-            </div>
+
+              <div className={`w-full ${isMore ? "max-h-[20] overflow-hidden" : "max-h-fit"} bg-gray-400 rounded-xl p-4 mt-4 mb-6 transition-all`}>
+                <p>{video.views} Views <span>{dayjs(video.createdAt).fromNow()}</span></p>
+                <h1  className="text-sm text-gray-600" >{video.title}</h1>
+                <p>{video.description || "Description needed"} 
+
+                  <button
+                   onClick={toggleDescription}
+                   className="ml-3 mt-3 inline-block bg-black text-white text-sm px-4 py-1 rounded-full cursor-pointer">
+
+                    {isMore? "More" : "Less" }
+
+                  </button>
+                  </p>
+                </div>
+              </div>
 
 
         </div>
 
         {/* left container */}
-        <div className=" w-96 h-[45rem] flex flex-col gap-2 p-2 mt-5 overflow-y-auto">
+        <div className=" w-96 flex flex-col gap-2 p-2 mt-5 overflow-y-auto">
            {related.map((video) => (
             <div 
             key={video._id} 
@@ -105,7 +126,10 @@ const Watch = () => {
             <div>
 
             <h1 className="font-semibold text-gray-800 line-clamp-2" >{video.title}</h1>
+
             <h2 className="text-gray-500 truncate text-sm">{video.owner.userName}</h2>
+            
+            {/* discriptiom */}
             <p className="text-gray-500 text-sm">{video.views || 0 } Views • <span>{dayjs(video.createdAt).fromNow()}</span></p>
             </div>
             </div>

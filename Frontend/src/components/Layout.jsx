@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
@@ -12,14 +12,14 @@ const Layout = () => {
     <div className="flex flex-col h-[100vh]">
       {/* Navbar */}
       <Navbar
-        toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+        toggleSidebar={ () => setIsSidebarOpen(!isSidebarOpen) }
       />
 
       {/* Body: Sidebar + Content */}
       <div 
       className="flex flex-1">
         <Sidebar 
-        isOpen={isSidebarOpen} />
+        isOpen={ isSidebarOpen }/>
 
         {/* Main Content */}
         <main 
