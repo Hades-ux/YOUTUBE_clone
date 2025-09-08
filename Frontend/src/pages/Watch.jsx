@@ -8,7 +8,7 @@ dayjs.extend(relativeTime);
 
 const Watch = () => {
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const BACKEND_URL = import.meta.env.VITE_API_URL;
 
     const { id } = useParams();
     const [ video, setVideo ] = useState(null)
@@ -52,10 +52,10 @@ const Watch = () => {
     
 
   return (
-    <div className='w-screen h-screen flex p-4'>
+    <div className='w-screen h-screen flex'>
 
         {/* right container */}
-        <div className="mt-5 overflow-y-auto max-h-screen">
+        <div className=" overflow-y-auto px-4">
          
           
 
@@ -94,7 +94,7 @@ const Watch = () => {
 
               </div>
 
-              <div className={`w-full ${isMore ? "max-h-[20] overflow-hidden" : "max-h-fit"} bg-gray-400 rounded-xl p-4 mt-4 mb-6 transition-all`}>
+              <div className={`w-full ${isMore ? "h-40" : "max-h-fit"} bg-gray-400 rounded-xl p-4 mt-4 mb-6 transition-all`}>
                 <p>{video.views} Views <span>{dayjs(video.createdAt).fromNow()}</span></p>
                 <h1  className="text-sm text-gray-600" >{video.title}</h1>
                 <p>{video.description || "Description needed"} 
@@ -114,7 +114,7 @@ const Watch = () => {
         </div>
 
         {/* left container */}
-        <div className=" w-96 flex flex-col gap-2 p-2 mt-5 overflow-y-auto">
+        <div className=" w-96 flex flex-col gap-2 pr-4 mt-5 overflow-y-hidden">
            {related.map((video) => (
             <div 
             key={video._id} 

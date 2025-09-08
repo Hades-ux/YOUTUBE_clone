@@ -4,7 +4,7 @@ import axios from "axios";
 
 function RegisterForm() {
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const BACKEND_URL = import.meta.env.REACT_APP_API_URL;
 
     const navigate = useNavigate();
 

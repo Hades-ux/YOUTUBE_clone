@@ -5,11 +5,12 @@ import axios from "axios";
 const Sidebar = ({isOpen}) => {
 
     const navigate = useNavigate();
+    const BACKEND_URL = import.meta.env.VITE_API_URL;
 
     const handleProfileClick = async () => {
         try {
             
-            const res = await axios.get("/api/v1/user/me", { withCredentials: true});
+            const res = await axios.get(`${BACKEND_URL}/api/v1/user/me`, { withCredentials: true});
             const userId = res.data.user.userName;
             navigate(`/profile/${userId}`);
 
@@ -28,7 +29,7 @@ const Sidebar = ({isOpen}) => {
     const handleHomeClick = async () => {
         try{
 
-            const res = await axios.get("/api/v1/video/random")
+            const res = await axios.get(`${BACKEND_URL}/api/v1/video/random`)
             navigate(`/`)
 
         }catch(error){

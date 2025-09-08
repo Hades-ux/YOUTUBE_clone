@@ -11,7 +11,7 @@ dayjs.extend(relativeTime);
 
 const Home = () => {
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const BACKEND_URL = import.meta.env.VITE_API_URL;
 
   const [videos, setVideos] = useState([]);
   // const [trending, setTrending] = useState([]);
