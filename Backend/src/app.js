@@ -16,6 +16,12 @@ app.use(express.static("public"));
 
 app.use(cookieParser());
 
+app.get("/", (req, res) => {
+    res.status(200).json({
+        message: "Server is up and running!"
+    });
+});
+
 import authRoute from './routes/authRoutes.js';
 import userRoute from './routes/userRoutes.js';
 import videoRoute from './routes/videoRoutes.js';
