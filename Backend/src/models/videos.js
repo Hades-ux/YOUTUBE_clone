@@ -62,6 +62,11 @@ const videoSchema = new mongoose.Schema({
         index: true
     }],
 
+    comments: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    },
+
     likeCount: {
         type: Number,
         default: 0
