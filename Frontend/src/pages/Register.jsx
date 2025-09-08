@@ -4,6 +4,8 @@ import axios from "axios";
 
 function RegisterForm() {
 
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -59,7 +61,7 @@ function RegisterForm() {
 
        if (formData.coverImage) formDataToSend.append("coverImage", formData.coverImage);
 
-       axios.post("/api/v1/auth/register", formDataToSend, {
+       axios.post(`${BACKEND_URL}/api/v1/auth/register`, formDataToSend, {
        headers: { "Content-Type": "multipart/form-data" },
 
        }).then((res) => {

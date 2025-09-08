@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
 
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
     const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ export default function LoginPage() {
 
 
     // TODO: Connect to your login API
-    axios.post("/api/v1/auth/login", formData, {withCredentials: true})
+    axios.post(`${BACKEND_URL}/api/v1/auth/login`, formData, {withCredentials: true})
     .then((res) => {
       console.log("Login successful:", res.data);
 

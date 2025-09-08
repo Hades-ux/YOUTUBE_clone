@@ -4,6 +4,8 @@ import {useNavigate } from "react-router-dom"
 
 const Profile = () => {
 
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
     const [user, setUser] = useState(null)
 
     const navigate = useNavigate();
@@ -13,7 +15,7 @@ const Profile = () => {
         const fetchProfile = async () => {
             try {
 
-            const res = await axios.get("/api/v1/user/me", { withCredentials: true })
+            const res = await axios.get(`${BACKEND_URL}/api/v1/user/me`, { withCredentials: true })
             setUser(res.data.user);
             console.log(res.data.user)
 

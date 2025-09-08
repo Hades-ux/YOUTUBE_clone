@@ -11,6 +11,8 @@ dayjs.extend(relativeTime);
 
 const Home = () => {
 
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   const [videos, setVideos] = useState([]);
   // const [trending, setTrending] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,7 +21,7 @@ const Home = () => {
 
   const handleLogout = async () =>{
     try{
-        await axios.post("/api/v1/auth/logout", {}, { withCredentials: true });
+        await axios.post(`${BACKEND_URL}/api/v1/auth/logout`, {}, { withCredentials: true });
         
     } catch (error) {
         console.error("Logout failed: ", error.message);
@@ -34,7 +36,7 @@ const Home = () => {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("/api/v1/video/random");
+        const res = await axios.get(`${BACKEND_URL}/api/v1/video/random`);
         setVideos(res.data.videos);
       } catch (error) {
         console.error("error: ", error.message);

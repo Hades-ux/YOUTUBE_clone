@@ -8,6 +8,8 @@ dayjs.extend(relativeTime);
 
 const Watch = () => {
 
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
     const { id } = useParams();
     const [ video, setVideo ] = useState(null)
     const [ related, setRelated] = useState([])
@@ -23,10 +25,10 @@ const Watch = () => {
         const fetchVideo = async() => {
         
            try {
-             const res = await axios.get(`/api/v1/video/${ id }`);
+             const res = await axios.get(`${BACKEND_URL}/api/v1/video/${ id }`);
              setVideo(res.data.video);
 
-             const rel = await axios.get("/api/v1/video/random");
+             const rel = await axios.get(`${BACKEND_URL}/api/v1/video/random`);
              const filteredRelated = rel.data.videos.filter(v => v._id !== id);
              setRelated(filteredRelated) 
              console.log("Api response rel.data.videos",rel.data.videos)
