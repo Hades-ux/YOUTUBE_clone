@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Watch from "./pages/Watch";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Layout from "./components/Layout";
-import NotFound from "./pages/NotFound";
-import Profile from "./pages/Profile";
+import Home from "./pages/Home.jsx";
+import Watch from "./pages/Watch.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import Layout from "./components/Layout.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import Profile from "./pages/Profile.jsx";
 
 function App() {
   return (
