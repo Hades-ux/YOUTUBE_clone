@@ -3,9 +3,9 @@ import Home from "./pages/Home.jsx";
 import Watch from "./pages/Watch.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-import Layout from ".components/Layout.jsx";
-import NotFound from ".pages/NotFound.jsx";
-import Profile from ".pages/Profile.jsx";
+import Layout from "./components/Layout.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import Profile from "./pages/Profile.jsx";
 
 function App() {
   return (
