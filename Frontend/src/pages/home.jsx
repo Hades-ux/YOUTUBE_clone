@@ -9,7 +9,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 
-export default function HomePage() {
+const HomePage = () => {
   const [videos, setVideos] = useState([]);
   // const [trending, setTrending] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -121,3 +121,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+export default Home;
