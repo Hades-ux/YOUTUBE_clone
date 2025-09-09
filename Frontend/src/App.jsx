@@ -7,6 +7,8 @@ import Layout from "./components/Layout.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Profile from "./pages/Profile.jsx";
 import Channel from "./pages/Channel.jsx";
+import ChannelContent from "./pages/ChannelContent.jsx"
+import ChannelCustomisation from "./pages/ChannelCustomisation.jsx";
 
 function App() {
   return (
@@ -17,8 +19,10 @@ function App() {
         <Route path="watch/:id" element={<Watch />} />
         <Route path="profile/:id" element={<Profile />} />
         <Route path="channel/:id" element={<Channel />} />
-
         </Route>
+
+        <Route path="/studio.youtube-clone.com/channel/:id/videos/" element={<ChannelContent />} />
+        <Route path="studio.youtube-clone.com/channel/:id/editing/profile" element={<ChannelCustomisation />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
