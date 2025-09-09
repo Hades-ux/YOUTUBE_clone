@@ -6,6 +6,7 @@ import Register from "./pages/Register.jsx";
 import Layout from "./components/Layout.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Profile from "./pages/Profile.jsx";
+import Channel from "./pages/Channel.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="watch/:id" element={<Watch />} />
         <Route path="profile/:id" element={<Profile />} />
+        <Route path="channel/:id" element={<Channel />} />
 
         </Route>
         <Route path="login" element={<Login />} />

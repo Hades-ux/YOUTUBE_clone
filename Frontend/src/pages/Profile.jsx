@@ -1,5 +1,5 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
+import axios from "axios"
 import {useNavigate } from "react-router-dom"
 
 const Profile = () => {
@@ -17,8 +17,6 @@ const Profile = () => {
 
             const res = await axios.get(`${BACKEND_URL}/api/v1/user/me`, { withCredentials: true })
             setUser(res.data.user);
-            console.log(res.data.user)
-
                 
             } catch (error) {
 
@@ -37,15 +35,21 @@ const Profile = () => {
 
     },[])
 
+    const handChannelClick = () => {
+      navigate(`/channel/${user?._id}`)
+
+    }
+
   return (
-    <div className='w-screen h-screen p-5 mt-2 overflow-y-scroll'>
+    <div className='w-screen h-screen py-5 mt-2 overflow-y-scroll'>
         <div className="flex gap-3 mb-5">
         <img 
         src={user?.avatar?.url || "image"} 
         alt={user?.userName}
         className="h-40 w-40 rounded-full border" />
         <div>
-        <h1 className="ml-2 mb-4 text-3xl font-semibold mt-5">{user?.userName}</h1>
+        <h1 className="ml-2 mb-2 text-3xl font-semibold mt-5">{user?.userName}</h1>
+        <h1 className="ml-2 mb-2 text-sm text-gray-500 font-semibold">{user?.channelName || "@Channel Name"} • <button className="cursor-pointer" onClick={handChannelClick}>View Channel</button> </h1>
          <button className=" ml-2 px-3 py-2 bg-gray-200 rounded-3xl text-sm mr-3 cursor-pointer hover:bg-gray-300">
             switch account
          </button>

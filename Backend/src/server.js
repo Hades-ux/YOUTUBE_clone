@@ -14,5 +14,5 @@ connectDB()
         console.log(`Server running on port http://localhost:${port}`);
     })
 }).catch((err) => {
-    console.log("MONGODB CONNECTION ERROR: ", err);
+    console.log("MONGODB CONNECTION ERROR: ", err.message);
 });
