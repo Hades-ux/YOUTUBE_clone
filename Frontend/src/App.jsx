@@ -9,11 +9,14 @@ import Profile from "./pages/Profile.jsx";
 import Channel from "./pages/Channel.jsx";
 import ChannelContent from "./pages/ChannelContent.jsx"
 import ChannelCustomisation from "./pages/ChannelCustomisation.jsx";
+import StudioLayout from "./components/StudioLayout.jsx";
 
 function App() {
   return (
     <Router>
       <Routes>
+        
+        {/* yt */}
         <Route path="/" element={<Layout />} >
         <Route index element={<Home />} />
         <Route path="watch/:id" element={<Watch />} />
@@ -21,10 +24,17 @@ function App() {
         <Route path="channel/:id" element={<Channel />} />
         </Route>
 
-        <Route path="/studio.youtube-clone.com/channel/:id/videos/" element={<ChannelContent />} />
-        <Route path="studio.youtube-clone.com/channel/:id/editing/profile" element={<ChannelCustomisation />} />
+        {/* studio yt*/}
+        <Route path="studio" element={<StudioLayout/>}>
+        <Route path="channel/:id/videos/" element={<ChannelContent />} />
+        <Route path="channel/:id/editing/profile" element={<ChannelCustomisation />} />
+        </Route>
+
+        {/* user yt */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+
+        {/* error */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

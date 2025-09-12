@@ -42,7 +42,7 @@ const Channel = () => {
         <p className="ml-2 mb-2 text-[12px] text-gray-400 font-semibold">More about this channel <button className='text-gray-800 cursor-pointer' >...more</button></p>
          <button 
          className={`ml-2 px-3 py-2 bg-gray-200 rounded-3xl text-sm mr-3 cursor-pointer hover:bg-gray-300 ${loading? "cursor-not-allowed":"cursor-pointer"}`}
-         onClick={() => navigate(`/studio.youtube-clone.com/channel/${user._id}/videos/`)}
+         onClick={() => navigate(`/studio/channel/${user._id}/videos/`)}
          disabled={loading}>
             Customise channel
          </button>
