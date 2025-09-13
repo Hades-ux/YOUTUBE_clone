@@ -1,16 +1,20 @@
 
 
-const IconToolTip = ({iconName, name, isOpen}) => {
+const IconToolTip = ({iconName, name, isOpen, onClick}) => {
 
 
   return (
-    <div className='relative group flex gap-3 items-center cursor-pointer hover:bg-gray-100 p-3'>
+    <div className='relative group flex gap-3 items-center cursor-pointer hover:bg-gray-100 p-3' onClick={onClick}>
 
     {/* icon */}
     <div className="material-symbols-outlined material-symbole">{iconName}</div>
 
     {/* icon name */}
-    <div className={`${isOpen? "hidden":""} transition-all duration-400`}>{name}</div>
+    {!isOpen && (
+      <>
+    <div className={`transition-all duration-300`}>{name}</div>
+      </>
+    )}
 
     {/* tooltip */}
     {isOpen && (

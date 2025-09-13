@@ -7,7 +7,6 @@ const StudioSidebar = ({isOpen}) => {
   const navigate = useNavigate();
   const [user, setUser] = useState()
   const BACKEND_URL = import.meta.env.VITE_API_URL;
-  const [isHidden, setIsHidden] = useState(true)
 
   useEffect(() => {
   const  fetchUser = async() => {
@@ -43,21 +42,21 @@ const StudioSidebar = ({isOpen}) => {
         </div>
 
         <div className={`w-full h-full flex flex-col ${isOpen?" items-center":"overflow-y-auto"} `}>
-         <IconToolTip name={"Dashboard"} iconName={"Dashboard"} isOpen={isOpen}/>
-         <IconToolTip name={"Content"}   iconName={"video_library"} isOpen={isOpen}/>
-         <IconToolTip name={"Analytics"} iconName={"Analytics"} isOpen={isOpen}/>
-         <IconToolTip name={"Community"} iconName={"groups_3"} isOpen={isOpen}/>
-         <IconToolTip name={"Subtitles"} iconName={"subtitles"} isOpen={isOpen}/>
-         <IconToolTip name={"copyright"} iconName={"copyright"} isOpen={isOpen}/>
-         <IconToolTip name={"Payments"}  iconName={"currency_rupee"} isOpen={isOpen}/>
-         <IconToolTip name={"Customisation"} iconName={"wand_shine"} isOpen={isOpen}/>
-         <IconToolTip name={"Audio library"}   iconName={"library_music"} isOpen={isOpen}/>
+         <IconToolTip name={"Dashboard"} iconName={"Dashboard"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/dashboard`)}/>
+         <IconToolTip name={"Content"}   iconName={"video_library"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/videos/`)}/>
+         <IconToolTip name={"Analytics"} iconName={"Analytics"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/analytics`)}/>
+         <IconToolTip name={"Community"} iconName={"groups_3"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/community`)}/>
+         <IconToolTip name={"Subtitles"} iconName={"subtitles"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/subtitle`)}/>
+         <IconToolTip name={"copyright"} iconName={"copyright"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/copyright`)}/>
+         <IconToolTip name={"Earn"}  iconName={"currency_rupee"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/earn`)}/>
+         <IconToolTip name={"Customisation"} iconName={"wand_shine"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/edit/profile`)}/>
+         <IconToolTip name={"Audio library"}   iconName={"library_music"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/audio/library`)}/>
         </div>
 
          {/* bottom */}
          <footer className={`mt-auto w-full flex flex-col mb-4  border-t border-gray-300 ${isOpen?" items-center":""}`}>
-          <IconToolTip name={"Setting"} iconName={"settings"} isOpen={isOpen}/>
-          <IconToolTip name={"Send Feedback"} iconName={"feedback"} isOpen={isOpen}/>
+          <IconToolTip name={"Setting"} iconName={"settings"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/setting`)}/>
+          <IconToolTip name={"Send Feedback"} iconName={"feedback"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/feedBack`)}/>
          </footer>
 
 
