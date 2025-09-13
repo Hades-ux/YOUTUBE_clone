@@ -2,7 +2,7 @@ import React from 'react'
 
 const ChannelContent = () => {
   return (
-    <div>ChannelContent</div>
+    <div className='p-4'>ChannelContent</div>
   )
 }
 

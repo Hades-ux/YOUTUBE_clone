@@ -7,8 +7,8 @@ import Layout from "./components/Layout.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Profile from "./pages/Profile.jsx";
 import Channel from "./pages/Channel.jsx";
-import ChannelContent from "./pages/ChannelContent.jsx"
-import ChannelCustomisation from "./pages/ChannelCustomisation.jsx";
+import Content from "./studioPages/Content.jsx"
+import Dashboard from "./studioPages/Dashboard.jsx"
 import StudioLayout from "./components/StudioLayout.jsx";
 
 function App() {
@@ -26,8 +26,9 @@ function App() {
 
         {/* studio yt*/}
         <Route path="studio" element={<StudioLayout/>}>
-        <Route path="channel/:id/videos/" element={<ChannelContent />} />
-        <Route path="channel/:id/editing/profile" element={<ChannelCustomisation />} />
+        <Route path="channel/:id/videos/" element={<Content/>} />
+        <Route path="channel/:id/edit/profile" element={<Dashboard/>} />
+        <Route path="channel/:id/Analytics" element={<Analytics/>} />
         </Route>
 
         {/* user yt */}

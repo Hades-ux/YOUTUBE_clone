@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import IconToolTip from './IconToolTip';
 
 const StudioSidebar = ({isOpen}) => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const StudioSidebar = ({isOpen}) => {
         console.log(res.data.user)
         
       } catch (error) {
-        console.log("error: user not found "+error.message)
+        console.log("error: user not found "+ error.message)
         
       }
 
@@ -27,29 +28,36 @@ const StudioSidebar = ({isOpen}) => {
 
   return (
     <div className='flex'>
-      <div className={`${ isOpen?"w-20" : "w-40" } h-[calc(100vh-64px)] w-20 border-r border-gray-300 p-2 flex flex-col items-center gap-5 transition-all duration-300`}>
-         <img src={user?.avatar?.url} alt="user"
-         className='rounded-full h-10 w-10 mt-2 '/>
-         <div className='relative group flex gap-3'>
-         <span className="material-symbols-outlined material-symbole">dashboard</span><span className="absolute top-6 hidden  group-hover:block bg-black text-white text-sm rounded px-2 py-1 whitespace-nowrap">Dashboard</span><span className={`${isOpen? "hidden":""} transition-all duration-400`}>Dashboad</span>
-         </div>
+      <div className={`${ isOpen?"w-20" : "w-50" } h-[calc(100vh-64px)] w-20 border-r border-gray-300 flex flex-col items-center gap-5 transition-all duration-300`}>
+         
+         <div className='flex flex-col items-center'>
+          <img src={user?.avatar?.url} alt="user"
+         className={`rounded-full border border-gray-200 ${!isOpen?"mt-2 h-40 w-36":"h-12 w-12 my-4"} `}/>
+        {!isOpen && (
+          <>
+          <h1 className='text-sm font-semibold mt-2'>Your channel</h1>
+          <h1 className='text-sm text-gray-500'>{user?.userName.toUpperCase() || "Owner"} </h1>
+        </>
 
-         <div className='relative group flex gap-3'>
-         <span className="material-symbols-outlined material-symbole">video_library</span><span className="absolute top-6 hidden  group-hover:block bg-black text-white text-sm rounded px-2 py-1 whitespace-nowrap">Content</span><span className={`${isOpen? "hidden":""} transition-all duration-400 w-18`}>content</span>
+        )} 
+        </div>
 
-         </div>
-         <span className="material-symbols-outlined material-symbole">analytics</span>
-         <span className="material-symbols-outlined material-symbole">groups_3</span>
-         <span className="material-symbols-outlined material-symbole">subtitles</span>
-         <span className="material-symbols-outlined material-symbole">copyright</span>
-         <span className="material-symbols-outlined material-symbole">currency_rupee</span>
-         <span className="material-symbols-outlined material-symbole">wand_shine</span>
-         <span className="material-symbols-outlined material-symbole">library_music</span>
+        <div className={`w-full h-full flex flex-col ${isOpen?" items-center":"overflow-y-auto"} `}>
+         <IconToolTip name={"Dashboard"} iconName={"Dashboard"} isOpen={isOpen}/>
+         <IconToolTip name={"Content"}   iconName={"video_library"} isOpen={isOpen}/>
+         <IconToolTip name={"Analytics"} iconName={"Analytics"} isOpen={isOpen}/>
+         <IconToolTip name={"Community"} iconName={"groups_3"} isOpen={isOpen}/>
+         <IconToolTip name={"Subtitles"} iconName={"subtitles"} isOpen={isOpen}/>
+         <IconToolTip name={"copyright"} iconName={"copyright"} isOpen={isOpen}/>
+         <IconToolTip name={"Payments"}  iconName={"currency_rupee"} isOpen={isOpen}/>
+         <IconToolTip name={"Customisation"} iconName={"wand_shine"} isOpen={isOpen}/>
+         <IconToolTip name={"Audio library"}   iconName={"library_music"} isOpen={isOpen}/>
+        </div>
 
          {/* bottom */}
-         <footer className=' mt-auto flex flex-col gap-6 mb-4'>
-         <span className="material-symbols-outlined material-symbole">settings</span>
-         <span className="material-symbols-outlined material-symbole">feedback</span>
+         <footer className={`mt-auto w-full flex flex-col mb-4  border-t border-gray-300 ${isOpen?" items-center":""}`}>
+          <IconToolTip name={"Setting"} iconName={"settings"} isOpen={isOpen}/>
+          <IconToolTip name={"Send Feedback"} iconName={"feedback"} isOpen={isOpen}/>
          </footer>
 
 
