@@ -10,12 +10,12 @@ import Subtitles from "../studioPages/Subtitles";
 import Copyright from "../studioPages/Copyright";
 import Customisation from "../studioPages/Customisation";
 import AudioLibrary from "../studioPages/AudioLibrary";
-import StudioLayout from "../components/StudioLayout";
+import StudioLayout from "../layouts/StudioLayout";
 
 const StudioRoutes = () => {
   return (
     <Routes>
-        <Route path="studio" element={<StudioLayout/>}>
+        <Route path="/" element={<StudioLayout/>}>
         <Route path="channel/:id/earn" element={<Earn/>} />
         <Route path="channel/:id/videos" element={<Content/>} />
         <Route path="channel/:id/dashboard" element={<Dashboard/>} />

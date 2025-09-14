@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Customisation = () => {
+const ChannelCustomisation = () => {
   return (
-    <div>Customisation</div>
+    <div className='py-5'>ChannelCustomisation</div>
   )
 }
 
-export default Customisation
+export default ChannelCustomisation

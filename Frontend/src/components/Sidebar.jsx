@@ -18,7 +18,7 @@ const Sidebar = ({isOpen}) => {
 
              if (error.response && error.response.status === 401) {
               alert("Login required to view your profile.");
-              navigate("/login");
+              navigate("auth/login");
         } else {
         console.error("Unexpected error:", error.message);
         }

@@ -1,9 +1,12 @@
-import React from 'react'
+import VideoNavbar from '../components/VideoNavbar'
 
-const Content = () => {
+const ChannelContent = () => {
   return (
-    <div>Content</div>
+    <>
+    <h1 className='text-4xl p-4'>Channel content</h1>
+    <VideoNavbar/>
+    </>
   )
 }
 
-export default Content
+export default ChannelContent

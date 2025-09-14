@@ -1,7 +1,7 @@
 
 import { Outlet } from 'react-router-dom'
-import StudioNavbar from './StudioNavbar'
-import StudioSidebar from './StudioSidebar'
+import StudioNavbar from '../components/StudioNavbar'
+import StudioSidebar from '../components/StudioSidebar'
 import { useState } from 'react'
 
 const StudioLayout = () => {
