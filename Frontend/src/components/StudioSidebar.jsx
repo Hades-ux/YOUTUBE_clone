@@ -1,29 +1,12 @@
-import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
 import IconToolTip from './IconToolTip';
+import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react';
+import UserContext from '../context/UserContext';
 
 const StudioSidebar = ({isOpen}) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState()
-  const BACKEND_URL = import.meta.env.VITE_API_URL;
 
-  useEffect(() => {
-  const  fetchUser = async() => {
-      try {
-        const res = await axios.get(`${BACKEND_URL}/api/v1/user/me`, { withCredentials: true })
-        setUser(res.data.user)
-        console.log(res.data.user)
-        
-      } catch (error) {
-        console.log("error: user not found "+ error.message)
-        
-      }
-
-    }
-    fetchUser();
-  }, [])
-  
+  const {user} = useContext(UserContext);
 
   return (
     <div className='flex'>
@@ -33,7 +16,7 @@ const StudioSidebar = ({isOpen}) => {
           <img src={user?.avatar?.url} alt="user"
          className={`rounded-full border border-gray-200 ${!isOpen?"mt-2 h-40 w-36":"h-12 w-12 my-4"} `}/>
         {!isOpen && (
-          <>
+        <>
           <h1 className='text-sm font-semibold mt-2'>Your channel</h1>
           <h1 className='text-sm text-gray-500'>{user?.userName.toUpperCase() || "Owner"} </h1>
         </>
@@ -41,7 +24,7 @@ const StudioSidebar = ({isOpen}) => {
         )} 
         </div>
 
-        <div className={`w-full h-full flex flex-col ${isOpen?" items-center":"overflow-y-auto"} `}>
+        <div className={`w-full h-full flex flex-col ${isOpen?" items-center":"overflow-y-auto overflow-x-hidden"} `}>
          <IconToolTip name={"Dashboard"} iconName={"Dashboard"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/dashboard`)}/>
          <IconToolTip name={"Content"}   iconName={"video_library"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/videos/`)}/>
          <IconToolTip name={"Analytics"} iconName={"Analytics"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/analytics`)}/>

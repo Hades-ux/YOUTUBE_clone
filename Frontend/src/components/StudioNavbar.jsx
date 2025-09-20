@@ -1,28 +1,12 @@
+import { useContext } from "react";
 import logo from "../assets/yt_studio_logo.svg"
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import UserContext from "../context/UserContext";
 
 const StudioNavbar = ({toggle}) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState()
-  const BACKEND_URL = import.meta.env.VITE_API_URL;
-
-  useEffect(() => {
-  const  fetchUser = async() => {
-      try {
-        const res = await axios.get(`${BACKEND_URL}/api/v1/user/me`, { withCredentials: true })
-        setUser(res.data.user)
-        console.log(res.data.user)
-        
-      } catch (error) {
-        console.log("error: user not found "+error.message)
-        
-      }
-
-    }
-    fetchUser();
-  }, [])
+  const { user } = useContext(UserContext);
+  
   
 
   return (

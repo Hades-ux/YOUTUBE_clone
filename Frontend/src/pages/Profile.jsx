@@ -1,39 +1,12 @@
-import { useEffect, useState } from "react"
-import axios from "axios"
+import { useContext } from "react"
 import {useNavigate } from "react-router-dom"
+import UserContext from "../context/UserContext"
 
 const Profile = () => {
 
-  const BACKEND_URL = import.meta.env.VITE_API_URL;
-
-    const [user, setUser] = useState(null)
+  const {user, loading }= useContext(UserContext)
 
     const navigate = useNavigate();
-
-    useEffect(() =>{
-
-        const fetchProfile = async () => {
-            try {
-
-            const res = await axios.get(`${BACKEND_URL}/api/v1/user/me`, { withCredentials: true })
-            setUser(res.data.user);
-                
-            } catch (error) {
-
-            if (error.response && error.response.status === 401) {
-              alert("Login required to view your profile.");
-              navigate("/login");
-            } else {
-             console.error("Unexpected error:", error.message);
-            }
-                
-            }
-            
-        }
-
-        fetchProfile();
-
-    },[])
 
     const handChannelClick = () => {
       navigate(`/channel/${user?._id}`)
@@ -50,10 +23,14 @@ const Profile = () => {
         <div>
         <h1 className="ml-2 mb-2 text-3xl font-semibold mt-5">{user?.userName}</h1>
         <h1 className="ml-2 mb-2 text-sm text-gray-500 font-semibold">{user?.channelName || "@Channel Name"} • <button className="cursor-pointer" onClick={handChannelClick}>View Channel</button> </h1>
-         <button className=" ml-2 px-3 py-2 bg-gray-200 rounded-3xl text-sm mr-3 cursor-pointer hover:bg-gray-300">
+         <button 
+           disabled={loading}
+           className=" ml-2 px-3 py-2 bg-gray-200 rounded-3xl text-sm mr-3 cursor-pointer hover:bg-gray-300">
             switch account
          </button>
-         <button className=" px-3 py-2 bg-gray-200 rounded-3xl text-sm cursor-pointer hover:bg-gray-300">
+         <button 
+           disabled={loading}
+           className=" px-3 py-2 bg-gray-200 rounded-3xl text-sm cursor-pointer hover:bg-gray-300">
             Google account
          </button>
         </div>
