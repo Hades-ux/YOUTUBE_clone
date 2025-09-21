@@ -1,5 +1,5 @@
 import logo from "../assets/YouTube-Logo.png";
-import { FiMenu, FiMoreVertical, FiSearch, FiMic, FiUser } from "react-icons/fi";
+import { FiSearch, FiMic } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom'
 
 const Navbar = ({toggleSidebar}) => {
@@ -13,14 +13,14 @@ const Navbar = ({toggleSidebar}) => {
   return (
 
     <nav 
-    className=" bg-white w-full fixed flex items-center justify-between px-4 py-2 top-0 z-50">
+    className=" bg-white w-full fixed flex items-center justify-between px-3 py-2 top-0 z-50 border-b border-gray-300">
       {/* Left Section */}
       <div 
       className="flex items-center gap-3">
         <button 
         onClick={toggleSidebar}
-        className="hover:bg-gray-300 p-1 rounded-2xl cursor-pointer">
-            <FiMenu size={20}/> 
+        className="cursor-pointer">
+          <span class="material-symbols-outlined">menu</span>
         </button>
         <img 
         src={logo} 
@@ -56,16 +56,14 @@ const Navbar = ({toggleSidebar}) => {
       </div>
 
       {/* Right Section */}
-      <div 
-      className="flex items-center gap-3">
-        <button 
-        aria-label="More Options">
-          <FiMoreVertical size={22} className="cursor-pointer" />
+      <div className="flex items-center">
+        <button aria-label="More Options">
+          <span class="material-symbols-outlined cursor-pointer">more_vert</span>
         </button>
         <button 
         className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-blue-600 rounded-3xl flex items-center gap-1 cursor-pointer "
         onClick={handleOnClick}>
-          <FiUser size={18} /> <span className="hidden sm:inline">Sign in</span>
+          <span class="material-symbols-outlined"> person </span> <span className="hidden sm:inline">Sign in</span>
         </button>
       </div>
     </nav>

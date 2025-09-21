@@ -18,7 +18,7 @@ const IconToolTip = ({iconName, name, isOpen, onClick}) => {
 
     {/* tooltip */}
     {isOpen && (
-        <span className="absolute top-6 ml-2 hidden group-hover:block bg-black text-white text-sm rounded px-2 py-1 whitespace-nowrap">
+        <span className="absolute top-9 hidden group-hover:block bg-black text-white text-sm rounded px-2 py-1 whitespace-nowrap">
           {name}
         </span>
       )}

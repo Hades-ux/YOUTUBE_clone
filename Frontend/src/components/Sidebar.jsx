@@ -1,6 +1,6 @@
-import { FiHome } from "react-icons/fi"
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
+import IconToolTip from "./IconToolTip";
 
 const Sidebar = ({isOpen}) => {
 
@@ -45,34 +45,15 @@ const Sidebar = ({isOpen}) => {
     }
 
   return (
-    <aside className={`${isOpen ? "w-60" : "w-22"} fixed top-18 left-0 h-[calc(100vh-3rem)] bg-white transition-all duration-300`}>
+    
+    <aside className={` border-r border-gray-300 ${isOpen ? "w-15" : "w-37"} fixed top-18 h-[calc(100vh-3rem)] transition-all duration-300`}>
+       
+       <IconToolTip name={"Home"} iconName={"Home"} isOpen={isOpen} />
 
-        <ul className='flex flex-col pt-2 gap-2'>
-            <li className={`flex  items-center justify-center gap-3 p-2 cursor-pointer hover:bg-gray-300 rounded ${isOpen? " ": "flex-col" }`}
-             onClick={ handleHomeClick }>
-                <FiHome size={20} />
-                { !isOpen && <div className='text-gray-800 text-sm'>Home</div>}
-                { isOpen && <span className='text-gray-800 '>Home</span>}
-            </li>
+       <IconToolTip name={ "Subscription" } iconName={ "subscriptions" } isOpen={isOpen}/>
 
-            
-            <li className={`flex  items-center justify-center gap- p-2 text-sm cursor-pointer hover:bg-gray-300  rounded ${isOpen? " ": "flex-col" }`}>
-                <FiHome size={20} />
-                { !isOpen && <div className='text-gray-800'>Subscription</div>}
-                { isOpen && <span className='text-gray-800 '>Subscription</span>}
-            </li>
+       <IconToolTip name={ "You" } iconName={ "account_circle" } isOpen={isOpen} onClick={handleHomeClick}/>
 
-            
-            <li className={`flex  items-center justify-center gap-3 text-sm p-2 cursor-pointer hover:bg-gray-300 rounded ${isOpen? " ": "flex-col" }`}
-                onClick={ handleProfileClick }>
-                <FiHome size={20} />
-                { !isOpen && <div className='text-gray-800'>You</div>}
-                { isOpen && <span className='text-gray-800 '>You</span>}
-            </li>
-
-            
-
-        </ul>
     </aside>
   )
 }

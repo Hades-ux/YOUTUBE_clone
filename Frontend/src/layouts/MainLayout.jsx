@@ -5,26 +5,21 @@ import { Outlet } from "react-router-dom";
 
 const Layout = () => {
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
 
-    <div className="flex flex-col h-[100vh] box-border">
+    <div className="box-border">
+
       {/* Navbar */}
-      <Navbar
-        toggleSidebar={ () => setIsSidebarOpen(!isSidebarOpen) }
-      />
+      <Navbar toggleSidebar={ () => setIsOpen(!isOpen) }/>
 
       {/* Body: Sidebar + Content */}
-      <div 
-      className="flex flex-1">
-        <Sidebar 
-        isOpen={ isSidebarOpen }/>
+      <div className="flex">
+        <Sidebar isOpen={ isOpen }/>
 
         {/* Main Content */}
-        <main 
-          className={`pt-14 fixed flex-grow transition-all duration-300 p-4 ${isSidebarOpen ? "ml-60" : "ml-20"} `}
-          >
+        <main className={`flex-1 pt-10 transition-all duration-300 ${isOpen ? "pl-6" : "pl-31"}`}>
           <Outlet />
         </main>
       </div>
