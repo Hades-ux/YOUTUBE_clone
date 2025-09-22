@@ -1,13 +1,15 @@
+import { useContext } from "react";
 import logo from "../assets/YouTube-Logo.png";
-import { FiSearch, FiMic } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom'
+import UserContext from "../context/UserContext";
 
 const Navbar = ({toggleSidebar}) => {
 
     const navigate = useNavigate();
+    const {user} = useContext(UserContext)
 
     const handleOnClick = () => {
-        navigate("/login")
+        navigate(user ? `/profile/${user._id}` : "/auth/login");
     }
 
   return (
@@ -20,7 +22,7 @@ const Navbar = ({toggleSidebar}) => {
         <button 
         onClick={toggleSidebar}
         className="cursor-pointer">
-          <span class="material-symbols-outlined">menu</span>
+          <span className="material-symbols-outlined mt-1">menu</span>
         </button>
         <img 
         src={logo} 
@@ -42,28 +44,28 @@ const Navbar = ({toggleSidebar}) => {
             aria-label="Search"
             className="px-4 flex items-center justify-center bg-gray-100 hover:bg-gray-200"
           >
-            <FiSearch size={20} />
+            <span className="material-symbols-outlined">search</span>
           </button>
         </div>
 
         {/* Mic Button */}
         <button
           aria-label="Voice Search"
-          className="h-10 w-10 bg-gray-100 hover:bg-gray-200 flex items-center justify-center rounded-full"
+          className="p-2 cursor-pointer bg-gray-100 hover:bg-gray-200 flex items-center justify-center rounded-full"
         >
-          <FiMic size={20} />
+          <span className="material-symbols-outlined">mic</span>
         </button>
       </div>
 
       {/* Right Section */}
       <div className="flex items-center">
         <button aria-label="More Options">
-          <span class="material-symbols-outlined cursor-pointer">more_vert</span>
+          <span className="material-symbols-outlined cursor-pointer mt-2">more_vert</span>
         </button>
         <button 
         className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-blue-600 rounded-3xl flex items-center gap-1 cursor-pointer "
         onClick={handleOnClick}>
-          <span class="material-symbols-outlined"> person </span> <span className="hidden sm:inline">Sign in</span>
+          <span className="material-symbols-outlined"> person </span> <span className="hidden sm:inline">{user ? user.userName : "Sign in" }</span>
         </button>
       </div>
     </nav>

@@ -19,7 +19,7 @@ const Layout = () => {
         <Sidebar isOpen={ isOpen }/>
 
         {/* Main Content */}
-        <main className={`flex-1 pt-10 transition-all duration-300 ${isOpen ? "pl-6" : "pl-31"}`}>
+        <main className={`flex-1 mt-20 transition-all duration-300 ${isOpen ? "pl-20" : "pl-48"}`}>
           <Outlet />
         </main>
       </div>

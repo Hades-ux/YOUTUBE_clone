@@ -1,10 +1,10 @@
 
 
-const IconToolTip = ({iconName, name, isOpen, onClick}) => {
+const IconToolTip = ({iconName, name, isOpen, onClick, hoverable = true}) => {
 
 
   return (
-    <div className='relative group flex gap-3 items-center cursor-pointer hover:bg-gray-100 p-3' onClick={onClick}>
+    <div className={`relative group flex gap-3 items-center cursor-pointer p-3 ${ hoverable? "hover:bg-gray-100" : "" }`} onClick={onClick}>
 
     {/* icon */}
     <div className="material-symbols-outlined material-symbole">{iconName}</div>

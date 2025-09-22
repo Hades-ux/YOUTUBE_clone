@@ -14,7 +14,7 @@ const Profile = () => {
     }
 
   return (
-    <div className='w-screen h-screen py-5 mt-2 overflow-y-scroll'>
+    <div className='box-border'>
         <div className="flex gap-3 mb-5">
         <img 
         src={user?.avatar?.url || "image"} 

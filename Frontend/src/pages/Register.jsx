@@ -100,8 +100,8 @@ function RegisterForm() {
     }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-6">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 border-t-4 border-teal-500 cursor-pointer">
+    <div className=" box-border flex min-h-screen items-center justify-center bg-gray-50 p-6">
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 border-t-4 border-[#FF0000] cursor-pointer">
 
         {/* Heading */}
         <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">
@@ -184,7 +184,7 @@ function RegisterForm() {
               <img
                 src={formData.avatarPreview}
                 alt="avatar preview"
-                className="mt-3 w-20 h-20 rounded-full object-cover border-2 border-teal-400"
+                className="mt-3 w-20 h-20 rounded-full object-cover border-2 border-[#FF0000]"
               />
             )}
           </div>
@@ -204,7 +204,7 @@ function RegisterForm() {
               <img
                 src={formData.coverImagePreview}
                 alt="cover preview"
-                className="mt-3 w-full h-32 object-cover rounded-lg border-2 border-cyan-400 "
+                className="mt-3 w-full h-32 object-cover rounded-lg border-2 border-[#FF0000] "
               />
             )}
           </div>
@@ -213,7 +213,7 @@ function RegisterForm() {
             type="submit"
             disabled={loading} // disable button while loading
             className={`w-full py-3 rounded-xl text-white font-semibold shadow-lg cursor-pointer transition-transform hover:scale-105
-            ${loading ? "bg-teal-400 cursor-not-allowed" : "bg-teal-600 hover:bg-teal-700"}`}>
+            ${loading ? "bg-teal-400 cursor-not-allowed" : "bg-[#FF0000] hover:bg-[#FF0000]"}`}>
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
@@ -221,7 +221,7 @@ function RegisterForm() {
         {/* Footer */}
         <p className="text-gray-400 text-center mt-6">
           Already have an account?{" "}
-          <a href="/login" className="text-teal-400 hover:underline">
+          <a href="/auth/login" className="text-blue-400 hover:underline">
             Login
           </a>
         </p>

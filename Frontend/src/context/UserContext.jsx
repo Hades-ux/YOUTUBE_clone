@@ -12,6 +12,7 @@ const BACKEND_URL = import.meta.env.VITE_API_URL;
 useEffect(() => {
 
     const fetchUser = async () => {
+
         try {
             
             const res = await axios.get(`${BACKEND_URL}/api/v1/user/me`, { withCredentials: true});

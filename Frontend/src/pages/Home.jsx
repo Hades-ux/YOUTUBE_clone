@@ -66,8 +66,8 @@ const Home = () => {
   }
 
   return (
-    <div className="p-6">
-        <h1 className="p-4" >Random videos</h1>
+    <div className="box-border">
+        <h1 className="py-2" >Random videos</h1>
      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
     {videos.map((video) => (
       <div
