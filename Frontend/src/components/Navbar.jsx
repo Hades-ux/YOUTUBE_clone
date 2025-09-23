@@ -65,7 +65,7 @@ const Navbar = ({toggleSidebar}) => {
         <button 
         className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-blue-600 rounded-3xl flex items-center gap-1 cursor-pointer "
         onClick={handleOnClick}>
-          <span className="material-symbols-outlined"> person </span> <span className="hidden sm:inline">{user ? user.userName : "Sign in" }</span>
+          <span className="material-symbols-outlined"> person </span> <span className="hidden sm:inline">{user ? user?.userName : "Sign in" }</span>
         </button>
       </div>
     </nav>

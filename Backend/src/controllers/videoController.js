@@ -2,6 +2,8 @@ import { Video } from "../models/videos.js"
 import { User } from "../models/User.js"
 import { uploadFile } from "../utils/uploadFile.js";
 import { v2 as cloudinary } from "cloudinary";
+import { get } from "mongoose";
+import { getCache, setCache } from "../utils/cache.js";
 
 
 const uploadVideo = async (req,res) => {
@@ -157,9 +159,22 @@ try {
 
 const randomHomeVideos = async (req,res) => {
 
-
   try {
+
     const count = parseInt(req.query.count) || 5
+    const cacheKey = `randomHomeVideo:${count}`;
+
+    // try cache
+    const cacheVideo = await getCache(cacheKey);
+    if(cacheVideo){
+      return res.status(200).json({
+        success: true,
+        source: "cache",
+        videos: cacheVideo
+      })
+    }
+    
+    // if  not cached, fetch from DB
     const videos = await Video.aggregate([
       {$match: { isPublic: true }},
       {$sample:{ size: count }}
@@ -171,7 +186,14 @@ const randomHomeVideos = async (req,res) => {
         select: "userName avatar.url"
       })
 
-    return res.status(200).json({ videos: populateVideo })
+    // save cache
+    await setCache( cacheKey, populateVideo, 60)
+
+    return res.status(200).json({ 
+      success: true,
+      source: "Server",
+      videos: populateVideo
+     })
 
   } catch (error) {
     return res.status(500).json({

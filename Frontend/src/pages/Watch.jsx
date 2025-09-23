@@ -52,7 +52,7 @@ const Watch = () => {
     
 
   return (
-    <div className='w-screen h-screen flex'>
+    <div className='box-border flex'>
 
         {/* right container */}
         <div className=" overflow-y-auto px-4">
@@ -114,7 +114,7 @@ const Watch = () => {
         </div>
 
         {/* left container */}
-        <div className=" w-96 flex flex-col gap-2 pr-4 mt-5 overflow-y-hidden">
+        <div className=" w-96 flex flex-col gap-2 pr-4 mt-8 overflow-y-hidden">
            {related.map((video) => (
             <div 
             key={video._id} 

@@ -21,13 +21,16 @@ export default function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    // TODO: Connect to your login API
+
     axios.post(`${BACKEND_URL}/api/v1/auth/login`, formData, {withCredentials: true})
     .then((res) => {
       console.log("Login successful:", res.data);
       alert("User Register successful")
 
-  
+     if (res.data.token) {
+       localStorage.setItem("authToken", res.data.token);
+      }
+
   navigate("/", { replace: true });
 
    }).catch((err) => {

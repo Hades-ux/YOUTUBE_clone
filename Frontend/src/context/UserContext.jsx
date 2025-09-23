@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createContext, useState, useEffect, Children} from 'react'
+import { createContext, useState, useEffect } from 'react'
 
 const UserContext = createContext();
 
@@ -22,7 +22,7 @@ useEffect(() => {
                 setUser(null);
             
         } finally {
-        setLoading(false);
+            setLoading(false);
       }
         
     }
