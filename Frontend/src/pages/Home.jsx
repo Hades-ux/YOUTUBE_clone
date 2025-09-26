@@ -10,7 +10,7 @@ const Home = () => {
 
   const BACKEND_URL = import.meta.env.VITE_API_URL;
 
-  const [videos, setVideos] = useState([]);
+  const { videos, setVideos } = useState([])
   // const [trending, setTrending] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -43,7 +43,8 @@ const Home = () => {
     };
 
     fetchVideos();
-  }, []);
+
+  }, [ setVideos]);
 
   if (loading) {
     return (
@@ -83,8 +84,8 @@ const Home = () => {
 
         <div className="mt-3 flex">
           <img 
-            src={video.owner.avatar.url}
-            alt={video.owner.userName}
+            src={video.owner?.avatar?.url}
+            alt={video.owner?.userName}
             className="w-12 h-12 rounded-full m-2 ml-0"
           />
 

@@ -2,7 +2,6 @@ import { Video } from "../models/videos.js"
 import { User } from "../models/User.js"
 import { uploadFile } from "../utils/uploadFile.js";
 import { v2 as cloudinary } from "cloudinary";
-import { get } from "mongoose";
 import { getCache, setCache } from "../utils/cache.js";
 
 
@@ -237,4 +236,43 @@ const getVideoById = async (req, res) => {
   }
 }
 
-export { uploadVideo , deleteVideo, randomHomeVideos, getVideoById }
+const searchVideos = async (req, res) => {
+  try {
+
+    const {value} = req.query;
+
+     if (!value || value.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Enter the text for search",
+      });
+    }
+
+     const videos = await Video.find({
+      title: { $regex: value, $options: "i" }
+    });
+
+    if (videos.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No videos found"
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      videos
+    })
+    
+  } catch (error) {
+    console.error("Error searching videos:", error);
+    return res.status(500).json({
+      success: false,
+      message: "internal Server Error"
+    })
+    
+  }
+
+}
+
+export { uploadVideo , deleteVideo, randomHomeVideos, getVideoById, searchVideos }

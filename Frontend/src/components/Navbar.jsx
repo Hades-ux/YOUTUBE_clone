@@ -1,15 +1,45 @@
-import { useContext } from "react";
-import logo from "../assets/YouTube-Logo.png";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
-import UserContext from "../context/UserContext";
+import logo from "../assets/YouTube-Logo.png";
+import axios from "axios";
 
 const Navbar = ({toggleSidebar}) => {
 
     const navigate = useNavigate();
-    const {user} = useContext(UserContext)
+    const [searchValue, setSearchValue] = useState("")
+    const [loading, setLoading] =useState(false)
+    const BACKEND_URL = import.meta.env.VITE_API_URL;
 
     const handleOnClick = () => {
         navigate(user ? `/profile/${user._id}` : "/auth/login");
+    }
+
+    const handleSearch = async () =>{
+         if(!searchValue.trim()){
+          alert("Enter Some Text For Search")
+          setVideos([])
+          return;
+         }
+         setLoading(true)
+         
+         try {
+          const res = await axios.get(`${BACKEND_URL}/api/v1/video/query?value=${encodeURIComponent(searchValue)}`)
+
+          if(res.data.success){
+           if(res.data.videos.length === 0){
+            alert("No videos found");
+            setVideos([]);
+          }else{
+            console.log(res.data.videos)
+            setVideos(res.data.videos)
+          }
+        }
+          
+         } catch (error) {
+          console.error(error)
+         }finally{
+          setLoading(false)
+         }
     }
 
   return (
@@ -38,14 +68,17 @@ const Navbar = ({toggleSidebar}) => {
           <input
             type="text"
             placeholder="Search"
+            value={searchValue}
+            onChange={(e)=>setSearchValue(e.target.value)}
             className="flex-grow px-4 py-2 outline-none text-sm"
           />
           <button
             aria-label="Search"
+            onClick={handleSearch}
             className="px-4 flex items-center justify-center bg-gray-100 hover:bg-gray-200"
           >
-            <span className="material-symbols-outlined">search</span>
-          </button>
+            {loading ? "searching...":<span className="material-symbols-outlined">search</span>
+}</button>
         </div>
 
         {/* Mic Button */}
