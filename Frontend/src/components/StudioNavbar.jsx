@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import logo from "../assets/yt_studio_logo.svg"
 import { useNavigate } from 'react-router-dom'
-import UserContext from "../context/UserContext";
+import { useUser } from "../context/UserContext";
 
 const StudioNavbar = ({toggle}) => {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const { user } = useUser()
   
   
 

@@ -31,7 +31,6 @@ const Watch = () => {
              const rel = await axios.get(`${BACKEND_URL}/api/v1/video/random`);
              const filteredRelated = rel.data.videos.filter(v => v._id !== id);
              setRelated(filteredRelated) 
-             console.log("Api response rel.data.videos",rel.data.videos)
            } catch (error) {
             console.log("error: ", error.message);
            } finally {

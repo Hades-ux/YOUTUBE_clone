@@ -1,12 +1,11 @@
+import { useUser } from '../context/UserContext';
 import IconToolTip from './IconToolTip';
 import { useNavigate } from 'react-router-dom'
-import { useContext } from 'react';
-import UserContext from '../context/UserContext';
 
 const StudioSidebar = ({isOpen}) => {
   const navigate = useNavigate();
 
-  const {user} = useContext(UserContext);
+  const {user} = useUser()
 
   return (
     <div className='flex'>

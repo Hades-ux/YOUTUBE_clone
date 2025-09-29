@@ -1,10 +1,9 @@
-import { useContext } from "react"
 import {useNavigate } from "react-router-dom"
-import UserContext from "../context/UserContext"
+import { useUser } from "../context/UserContext";
 
 const Profile = () => {
 
-  const {user, loading }= useContext(UserContext)
+  const {user, loading }= useUser()
 
     const navigate = useNavigate();
 
@@ -57,7 +56,7 @@ const Profile = () => {
           {/* like Videos */}
           <h1 className="text-2xl font-bold">Like Video</h1>
           <div className="w-full border mb-5 p-2 h-60">
-          <h1>Like Vides</h1>
+          <h1>Like Videos</h1>
           </div>
 
           {/* your clip */}

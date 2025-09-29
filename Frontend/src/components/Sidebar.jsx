@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import IconToolTip from "./IconToolTip";
-import { useContext } from "react";
-import UserContext from "../context/UserContext";
+import { useUser } from "../context/UserContext";
 
 const Sidebar = ({isOpen}) => {
 
     const navigate = useNavigate();
-
-    const { user } = useContext(UserContext);
+    const { user } = useUser()
 
     const handleProfileClick = async () => {
       if (!user) {
@@ -20,7 +18,7 @@ const Sidebar = ({isOpen}) => {
     }
         
 
-    const handleHomeClick = async () => {
+    const handleHomeClick = () => {
             navigate(`/`)
     }
 

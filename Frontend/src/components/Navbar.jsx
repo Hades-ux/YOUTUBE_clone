@@ -2,22 +2,24 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import logo from "../assets/YouTube-Logo.png";
 import axios from "axios";
+import { useUser } from "../context/UserContext";
 
 const Navbar = ({toggleSidebar}) => {
 
     const navigate = useNavigate();
     const [searchValue, setSearchValue] = useState("")
-    const [loading, setLoading] =useState(false)
+    const [loading, setLoading] = useState(false)
+    const { user, setUser } = useUser();
+
     const BACKEND_URL = import.meta.env.VITE_API_URL;
 
     const handleOnClick = () => {
-        navigate(user ? `/profile/${user._id}` : "/auth/login");
+      navigate("/auth/login");
     }
 
     const handleSearch = async () =>{
          if(!searchValue.trim()){
           alert("Enter Some Text For Search")
-          setVideos([])
           return;
          }
          setLoading(true)
@@ -36,11 +38,25 @@ const Navbar = ({toggleSidebar}) => {
         }
           
          } catch (error) {
-          console.error(error)
+          alert(error)
          }finally{
           setLoading(false)
          }
     }
+
+    const handleLogout = async () =>{
+    try{
+        await axios.post(`${BACKEND_URL}/api/v1/auth/logout`, {}, { withCredentials: true });
+        
+    } catch (error) {
+        console.error("Logout failed: ", error.message);
+    } finally{
+      setUser(null)
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("refreshToken");
+      navigate("/", { replace: true });
+    }
+  }
 
   return (
 
@@ -92,13 +108,13 @@ const Navbar = ({toggleSidebar}) => {
 
       {/* Right Section */}
       <div className="flex items-center">
-        <button aria-label="More Options">
+        <button aria-label="More Options" onClick={handleLogout}>
           <span className="material-symbols-outlined cursor-pointer mt-2">more_vert</span>
         </button>
         <button 
         className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-blue-600 rounded-3xl flex items-center gap-1 cursor-pointer "
         onClick={handleOnClick}>
-          <span className="material-symbols-outlined"> person </span> <span className="hidden sm:inline">{user ? user?.userName : "Sign in" }</span>
+          <span className="material-symbols-outlined"> person </span> <span className="hidden sm:inline">{ user?.userName || "Sign in" }</span>
         </button>
       </div>
     </nav>

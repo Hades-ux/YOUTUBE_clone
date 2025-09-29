@@ -10,8 +10,7 @@ const Home = () => {
 
   const BACKEND_URL = import.meta.env.VITE_API_URL;
 
-  const { videos, setVideos } = useState([])
-  // const [trending, setTrending] = useState([]);
+  const [ videos, setVideos ] = useState([])
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -44,7 +43,7 @@ const Home = () => {
 
     fetchVideos();
 
-  }, [ setVideos]);
+  }, [ ]);
 
   if (loading) {
     return (
