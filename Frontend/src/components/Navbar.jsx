@@ -61,7 +61,7 @@ const Navbar = ({toggleSidebar}) => {
   return (
 
     <nav 
-    className=" bg-white w-full fixed flex items-center justify-between px-3 py-2 top-0 z-50 border-b border-gray-300">
+    className=" bg-white w-full fixed flex items-center justify-between px-3 py-2 top-0 z-50">
       {/* Left Section */}
       <div 
       className="flex items-center gap-3">
@@ -114,7 +114,10 @@ const Navbar = ({toggleSidebar}) => {
         <button 
         className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-blue-600 rounded-3xl flex items-center gap-1 cursor-pointer "
         onClick={handleOnClick}>
-          <span className="material-symbols-outlined"> person </span> <span className="hidden sm:inline">{ user?.userName || "Sign in" }</span>
+          <span className="material-symbols-outlined"> person </span> <span className="hidden sm:inline">{ <img 
+          src={user?.avatar?.url || "Avatar "} 
+          alt={user?.userName || "userName" }
+          className='h-10 w-10 rounded-full cursor-pointer ml-2'/> || "Sign in" }</span>
         </button>
       </div>
     </nav>
