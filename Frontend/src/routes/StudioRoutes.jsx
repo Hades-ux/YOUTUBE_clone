@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Earn from "../studioPages/Earn";
 import Content from "../studioPages/Content";
 import Setting from "../studioPages/Setting";
@@ -11,6 +11,7 @@ import Copyright from "../studioPages/Copyright";
 import Customisation from "../studioPages/Customisation";
 import AudioLibrary from "../studioPages/AudioLibrary";
 import StudioLayout from "../layouts/StudioLayout";
+import RemovalRequest from "../pages/copyrightPages/RemovalRequest";
 
 const StudioRoutes = () => {
   return (
@@ -22,7 +23,10 @@ const StudioRoutes = () => {
         <Route path="channel/:id/analytics" element={<Analytics/>} />
         <Route path="channel/:id/community" element={<Community/>} />
         <Route path="channel/:id/subtitle" element={<Subtitles/>} />
-        <Route path="channel/:id/copyright" element={<Copyright/>} />
+        <Route path="channel/:id/copyright" element={<Copyright/>} >
+        <Route index element={<Navigate to="RemovalRequest" replace />} />
+         <Route path="RemovalRequest" element={<RemovalRequest />} />
+        </Route>
         <Route path="channel/:id/setting" element={<Setting/>} />
         <Route path="channel/:id/feedBack" element={<FeedBack/>} />
         <Route path="channel/:id/audio/library" element={<AudioLibrary/>} />
