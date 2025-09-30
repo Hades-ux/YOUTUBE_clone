@@ -49,7 +49,7 @@ const Channel = () => {
          </button>
          <button 
          className= {`px-3 py-2 bg-gray-200 rounded-3xl text-sm hover:bg-gray-300 ${loading? "cursor-not-allowed":"cursor-pointer"}`}
-         onClick={() => navigate(`/studio/channel/${user._id}/videos/`)}
+         onClick={() => navigate(`/studio/channel/${user._id}/contents`)}
          disabled={loading}>
             Manage videos
          </button>

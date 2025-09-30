@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import MiniNavbar from '../components/MiniNavbar'
+import MiniNavbar from '../../components/MiniNavbar'
 
 const Copyright = () => {
   const navItems = [

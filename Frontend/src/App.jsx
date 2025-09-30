@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AuthRoute from "./routes/AuthRoute";
 import MainRoute from "./routes/MainRoute";
-import StudioRoutes from "./routes/studioRoutes";
+import StudioRoutes from "./routes/StudioRoutes";
 import NotFound from "./pages/NotFound";
 import { UserProvider } from "./context/UserContext";
 function App() {
