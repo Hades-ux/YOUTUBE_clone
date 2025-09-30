@@ -8,10 +8,9 @@ import Shorts from "../pages/ContentPages/Shorts"
 import Posts from "../pages/ContentPages/Posts";
 import Podcasts from "../pages/ContentPages/Podcasts";
 
-const contentRoute = () => {
+const ContentRoute = () => {
   return (
-    <Route>
-        <Route path="channel/:id/contents/" element={<Content/>}>
+    <Route path="channel/:id/contents" element={<Content/>}>
         <Route index element={<Navigate to="videos" replace/>}/>
         <Route path="videos" element={<Videos/>}/>
         <Route path="inspiration" element={<Inspiration/>}/>
@@ -20,10 +19,8 @@ const contentRoute = () => {
         <Route path="shorts" element={<Shorts/>}/>
         <Route path="posts" element={<Posts/>}/>
         <Route path="podcasts" element={<Podcasts/>}/>
-
-        </Route>
     </Route>
   )
 }
 
-export default contentRoute
+export default ContentRoute

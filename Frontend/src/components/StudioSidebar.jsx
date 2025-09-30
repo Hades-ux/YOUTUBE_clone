@@ -25,7 +25,7 @@ const StudioSidebar = ({isOpen}) => {
 
         <div className={`w-full h-full flex flex-col ${isOpen?" items-center":"overflow-y-auto overflow-x-hidden"} `}>
          <IconToolTip name={"Dashboard"} iconName={"Dashboard"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/dashboard`)}/>
-         <IconToolTip name={"Content"}   iconName={"video_library"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/videos/`)}/>
+         <IconToolTip name={"Content"}   iconName={"video_library"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/contents`)}/>
          <IconToolTip name={"Analytics"} iconName={"Analytics"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/analytics`)}/>
          <IconToolTip name={"Community"} iconName={"groups_3"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/community`)}/>
          <IconToolTip name={"Subtitles"} iconName={"subtitles"} isOpen={isOpen} onClick={() => navigate(`/studio/channel/${user._id}/subtitle`)}/>

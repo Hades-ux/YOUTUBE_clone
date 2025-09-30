@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Earn from "../pages/studioPages/Earn";
-import ContentRoutes from "../routes/contentRoute";
+import ContentRoutes from "./ContentRoute";
 import Setting from "../pages/studioPages/Setting";
 import FeedBack from "../pages/studioPages/FeedBack";
 import Dashboard from "../pages/studioPages/Dashboard";
@@ -20,6 +20,8 @@ const StudioRoutes = () => {
         <Route path="channel/:id/dashboard" element={<Dashboard/>} />
         <Route path="channel/:id/setting" element={<Setting/>} />
         <Route path="channel/:id/feedBack" element={<FeedBack/>} />
+
+        {/* Nested route components */}
         {ContentRoutes()}
         {AnalyticsRoute()}
         {CommunityRoute()}
